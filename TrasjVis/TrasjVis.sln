@@ -3,11 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "TrasjVis", "TrasjVis\TrasjVis.pyproj", "{BA7DFE12-AD87-4C13-9F79-82B98B58445D}"
-EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Heatmap", "Heatmap\Heatmap.pyproj", "{2054C63E-0E5C-470D-80F7-B3DDA7C037D5}"
-EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Reader", "Reader\Reader.pyproj", "{126DCFD8-0573-47DB-9B87-FD051E86917B}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "HeatmapGen", "HeatmapGen\HeatmapGen.pyproj", "{126DCFD8-0573-47DB-9B87-FD051E86917B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BA7DFE12-AD87-4C13-9F79-82B98B58445D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BA7DFE12-AD87-4C13-9F79-82B98B58445D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2054C63E-0E5C-470D-80F7-B3DDA7C037D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2054C63E-0E5C-470D-80F7-B3DDA7C037D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{126DCFD8-0573-47DB-9B87-FD051E86917B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{126DCFD8-0573-47DB-9B87-FD051E86917B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
