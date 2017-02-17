@@ -5,13 +5,16 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>126dcfd8-0573-47db-9b87-fd051e86917b</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>debug.py</StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>Reader</Name>
     <RootNamespace>Reader</RootNamespace>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <CommandLineArguments>-open C:\Projects\AnttiTraj\data\eye-tracking_small_filtered.csv -vis x y trialtime -screenshot -res 16 8 -stat mean</CommandLineArguments>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -26,6 +29,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="data_reader.py" />
+    <Compile Include="Heatmap.py" />
+    <Compile Include="main.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
