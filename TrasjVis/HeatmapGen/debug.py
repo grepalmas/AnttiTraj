@@ -1,4 +1,8 @@
 
-import data_reader as dr
+import numpy as np;
+import statsmodels as sm
 
-data = dr.GetData("C:/Projects/AnttiTraj/data/eye-tracking_debug.txt")
+test = 16*1j
+
+X, Y = np.mgrid[12:200:test, 0:1:test]
+

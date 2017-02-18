@@ -13,7 +13,7 @@
     <Name>Reader</Name>
     <RootNamespace>Reader</RootNamespace>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
-    <CommandLineArguments>-open C:\Projects\AnttiTraj\data\eye-tracking_small_filtered.csv -vis x y trialtime -screenshot -res 16 8 -stat mean</CommandLineArguments>
+    <CommandLineArguments>-open C:\Projects\AnttiTraj\data\eye-tracking_small_filtered.csv -vis x y trialtime -screenshot -res 80 40 -stat mean</CommandLineArguments>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -25,11 +25,17 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="custom_stats.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="debug.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="data_reader.py" />
     <Compile Include="Heatmap.py" />
+    <Compile Include="kdegen.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="main.py">
       <SubType>Code</SubType>
     </Compile>
