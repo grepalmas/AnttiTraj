@@ -31,7 +31,6 @@
     <Compile Include="debug.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="data_reader.py" />
     <Compile Include="Heatmap.py" />
     <Compile Include="kdegen.py">
       <SubType>Code</SubType>
