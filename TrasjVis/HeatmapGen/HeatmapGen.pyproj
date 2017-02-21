@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>126dcfd8-0573-47db-9b87-fd051e86917b</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>uicaller.py</StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
