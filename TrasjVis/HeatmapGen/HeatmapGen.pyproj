@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>126dcfd8-0573-47db-9b87-fd051e86917b</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>main.py</StartupFile>
+    <StartupFile>uicaller.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -32,10 +32,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Heatmap.py" />
+    <Compile Include="heatmap_gen.py" />
     <Compile Include="kdegen.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="main.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="uicaller.py">

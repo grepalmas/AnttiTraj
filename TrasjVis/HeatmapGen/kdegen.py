@@ -53,12 +53,10 @@ def MakeKDE(filePaths, dimensions, res, stat):
         if stat == "mean":
             
             kde_resCount = custom_stats.gaussian_kde([xcolumn, ycolumn], bw_method = bandwidth_param)
-            #kde_resCount = stats.gaussian_kde([xcolumn, ycolumn], bw_method = bandwidth_param)
             kde_Countvalues = kde_resCount(positions)
+            kde_Countvalues[kde_Countvalues == 0] = 1
             kde_values = np.divide(kde_values, kde_Countvalues)
-            kde_values[kde_values == np.nan] = 0
-        
-
+            
         maxNormValue = max(maxNormValue, kde_values.max())
         kde_values = np.reshape(kde_values.T, X.shape)
         kde_values = np.rot90(kde_values)

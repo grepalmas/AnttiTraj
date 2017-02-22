@@ -8,8 +8,7 @@ main_window = UiParameters(master_app)
 
 master_app.mainloop()
 
+def _quit(self):    
+        master_app.destroy() 
+        master_app.quit()
 
-def _quit():
-    
-    master_app.destroy() 
-    master_app.quit()
