@@ -88,8 +88,25 @@ def main(args):
     if len(ksizeL) > 0:
         ksize = float(ksizeL[0])
 
+    color1 = [1,0,0,0]
+    color1L = findArg(args, "-color1")
+    if len(color1L) >= 4:
+        for i in range(4):
+            color1[i] = float(color1L[i])
+
+    color2 = [1,0,0,1]
+    color2L = findArg(args, "-color2")
+    if len(color2L) >= 4:
+        for i in range(4):
+            color2[i] = float(color2L[i])
+
+    filter = "catrom"
+    filterL = findArg(args, "-imgfilter")
+    if len(filterL) > 0:
+        filter = filterL[0]
+
     #Heatmap.MakeHeatMap(filePaths, listCols, filePath, stat, resolution, screenshot)
-    kdegen.MakeHeatMapKDE(filePaths, listCols, stat, resolution,ksize, screenshot, dpi, gamma)
+    kdegen.MakeHeatMapKDE(filePaths, listCols, stat, resolution, ksize, color1, color2, filter , screenshot, dpi, gamma)
     
 
 if __name__ == "__main__":

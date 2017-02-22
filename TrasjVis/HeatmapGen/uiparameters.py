@@ -1,7 +1,8 @@
 import Tkinter as tk
 import tkFileDialog
+import tkColorChooser
 
-from Tkinter import LabelFrame, IntVar
+from Tkinter import LabelFrame, IntVar, StringVar
 from Tkinter import Label
 from Tkinter import Entry
 from Tkinter import Button
@@ -9,6 +10,8 @@ from Tkinter import Checkbutton
 from Tkinter import Spinbox
 from Tkinter import Listbox
 from Tkinter import Frame
+
+import ttk
 
 import heatmap_gen
 
@@ -51,9 +54,33 @@ class UiParameters:
         line.append("-dpi")
         line.append(self.dpiSbox.get())
 
+        line.append("-color1")
+        color_list = self.color1Entry.get().split(",")
+        for color in color_list:
+            line.append(color)
+
+        line.append("-color2")
+        color_list = self.color2Entry.get().split(",")
+        for color in color_list:
+            line.append(color)
+
+        line.append("-imgfilter")
+        line.append(self.filter_box_value.get())
+
         if aslist: return line
 
         return " ".join(line)
+
+    def PickColor(self):
+        
+        color = tkColorChooser.askcolor()
+        rgbColor = color[0]
+        colorString = str('%.2f'%(rgbColor[0]/255.0)) + "," + str('%.2f'%(rgbColor[1]/255.0)) + "," + str('%.2f'%(rgbColor[2]/255.0))
+        self.color1Entry.delete(0, tk.END)
+        self.color1Entry.insert(0, colorString + ",0")
+
+        self.color2Entry.delete(0, tk.END)
+        self.color2Entry.insert(0, colorString + ",1")
 
     def SetFolderPath(self):
 
@@ -141,6 +168,7 @@ class UiParameters:
         self.statListBox = Listbox(self.lframe, height = 2)
         self.statListBox.insert(tk.END, "mean")
         self.statListBox.insert(tk.END, "sum")
+        self.statListBox.select_set(0,0)
         self.statListBox.pack()
         self.statListBox.grid(row = 4, column = 1)
 
@@ -168,8 +196,34 @@ class UiParameters:
         self.SetValueToSBox(self.kernelSizeSBox, 0.3)
         self.kernelSizeSBox.grid(row = 8, column = 1)
 
-        self.lframe.pack()
+        self.color1Label = Label(self.lframe, text="Color Map Color1: ")
+        self.color1Label.grid(row = 9, column = 0)
+        self.color1Entry = Entry(self.lframe)
+        self.color1Entry.grid(row = 9, column = 1)
+        self.color1Entry.insert(0, "1,0,0,0")
 
+        self.color2Label = Label(self.lframe, text="Color Map Color2: ")
+        self.color2Label.grid(row = 10, column = 0)
+        self.color2Entry = Entry(self.lframe)
+        self.color2Entry.grid(row = 10, column = 1)
+        self.color2Entry.insert(0, "1,0,0,1")
+
+        self.colorPickButton = Button(self.lframe, text = "Pick color", command = self.PickColor)
+        self.colorPickButton.grid(row = 9, column = 2)
+
+
+        self.filter_label = Label(self.lframe, text="Image filters")
+        self.filter_label.grid(row = 11, column = 0)
+        self.filter_box_value = StringVar()
+        self.filter_box = ttk.Combobox(self.lframe, textvariable = self.filter_box_value)
+        self.filter_box['values'] = ('none', 'nearest', 'bilinear', 'bicubic', 'spline16',\
+                                     'spline36', 'hanning', 'hamming', 'hermite', 'kaiser', 'quadric',\
+                                     'catrom', 'bessel', 'mitchell', 'sinc', 'lanczos','gaussian')
+        self.filter_box.current(11)
+        self.filter_box.grid(row = 11, column = 1)
+
+        self.lframe.pack()
+        
         self.ButtonFrame = Frame(self.master)
         self.applyButton = tk.Button(self.ButtonFrame, text ="Apply", command = self.Apply)
         self.applyButton.grid(row = 0, column = 0)

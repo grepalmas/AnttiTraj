@@ -123,7 +123,7 @@ def GetColorMap(color1, color2):
 
     #return densities, extents_x, extents_y, maxNormValue
 
-def MakeHeatMapKDE(filePaths, dimensions, stat, res, kernelsize, screenshot = True, dpi_arg = 120, gamma = 1.0):
+def MakeHeatMapKDE(filePaths, dimensions, stat, res, kernelsize, color1, color2, filter, screenshot = True, dpi_arg = 120, gamma = 1.0):
     
     if len(dimensions) < 2:
         return
@@ -153,26 +153,24 @@ def MakeHeatMapKDE(filePaths, dimensions, stat, res, kernelsize, screenshot = Tr
         density_norm = np.divide(density_gamma, norm_gamma)         
         #density_bounds = [density.min(), density.max()]
         
-        color_map = GetColorMap([1,0,0,0],[1,0,0,1])
+        color_map = GetColorMap(color1,color2)
 
-        for method in methods:
-            
-            fig, ax = plt.subplots()
+        fig, ax = plt.subplots()
 
-            if len(picData) > 0:
-                ax.imshow(picData, interpolation = "none", extent=[extents_x[i][0],extents_x[i][-1], extents_y[i][0],extents_y[i][-1]])
-            heatmap = ax.imshow(density_norm, interpolation = method, extent=[extents_x[i][0],extents_x[i][-1], extents_y[i][0],extents_y[i][-1]], filterrad = 2.0, cmap=color_map)
-            
-            #cbar = plt.colorbar(heatmap, ticks = [0,0.5,1])
-            #cbar.ax.set_yticklabels([str(density_bounds[0]), str((density_bounds[0] + density_bounds[1])/2),str(density_bounds[1])])
+        if len(picData) > 0:
+            ax.imshow(picData, interpolation = "none", extent=[extents_x[i][0],extents_x[i][-1], extents_y[i][0],extents_y[i][-1]])
+        heatmap = ax.imshow(density_norm, interpolation = filter, extent=[extents_x[i][0],extents_x[i][-1], extents_y[i][0],extents_y[i][-1]], filterrad = 2.0, cmap=color_map)
+        
+        #cbar = plt.colorbar(heatmap, ticks = [0,0.5,1])
+        #cbar.ax.set_yticklabels([str(density_bounds[0]), str((density_bounds[0] + density_bounds[1])/2),str(density_bounds[1])])
 
-            if screenshot:
-                fig_path = filePaths[i].replace(".csv","_"+method+".png")
+        if screenshot:
+            fig_path = filePaths[i].replace(".csv","_"+filter+".png")
 
-                fig.tight_layout()
+            fig.tight_layout()
 
-                plt.savefig(fig_path, bbox_inches = 'tight',pad_inches=0, dpi=dpi_arg, format = 'png');
+            plt.savefig(fig_path, bbox_inches = 'tight',pad_inches=0, dpi=dpi_arg, format = 'png');
 
-            else: plt.show()
+        else: plt.show()
 
-            plt.close(fig)
+        plt.close(fig)
