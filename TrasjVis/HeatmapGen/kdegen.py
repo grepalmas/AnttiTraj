@@ -9,7 +9,7 @@ from scipy import stats
 
 import os;
 
-def MakeKDE(filePaths, dimensions, res, stat):
+def MakeKDE(filePaths, dimensions, res, stat, kernelsize):
 
     densities = []
     maxNormValue = -1    
@@ -17,7 +17,7 @@ def MakeKDE(filePaths, dimensions, res, stat):
     extents_x = []
     extents_y = []
 
-    bandwidth_param = 0.3
+    bandwidth_param = kernelsize
 
     if len(dimensions) < 2:
         return
@@ -123,13 +123,13 @@ def GetColorMap(color1, color2):
 
     #return densities, extents_x, extents_y, maxNormValue
 
-def MakeHeatMapKDE(filePaths, dimensions, stat, res, screenshot = True, dpi_arg = 120, gamma = 1.0):
+def MakeHeatMapKDE(filePaths, dimensions, stat, res, kernelsize, screenshot = True, dpi_arg = 120, gamma = 1.0):
     
     if len(dimensions) < 2:
         return
     
 
-    densities, extents_x, extents_y, normvalue = MakeKDE(filePaths, dimensions, res, stat)
+    densities, extents_x, extents_y, normvalue = MakeKDE(filePaths, dimensions, res, stat, kernelsize)
 
     #methods = ['none', 'nearest', 'bilinear', 'bicubic', 'spline16',
     #           'spline36', 'hanning', 'hamming', 'hermite', 'kaiser', 'quadric',

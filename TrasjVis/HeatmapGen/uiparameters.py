@@ -39,6 +39,9 @@ class UiParameters:
         line.append(self.resXbox.get())
         line.append(self.resYbox.get())
         
+        line.append("-ksize")
+        line.append(self.kernelSizeSBox.get())
+
         line.append("-stat")
         line.append(self.statListBox.get(self.statListBox.curselection()))
         
@@ -47,7 +50,7 @@ class UiParameters:
 
         line.append("-dpi")
         line.append(self.dpiSbox.get())
-        
+
         if aslist: return line
 
         return " ".join(line)
@@ -109,14 +112,16 @@ class UiParameters:
         
         self.folderLabel = Label(self.lframe, text="Folder Path: ")
         self.folderLabel.grid(row = 0, column = 0)        
-        self.folderEntry = Entry(self.lframe, text="No Folder")
+        self.folderEntry = Entry(self.lframe)
+        self.folderEntry.insert(0,"No Folder")
         self.folderEntry.grid(row = 0, column = 1)
         self.folderButton = Button(self.lframe, text="Set Folder", command = self.SetFolderPath)
         self.folderButton.grid(row = 0, column = 2)
 
         self.columnsLabel = Label(self.lframe, text="Columns: ")
         self.columnsLabel.grid(row = 1, column = 0)
-        self.columnsEntry = Entry(self.lframe, text="Column names space-separated")
+        self.columnsEntry = Entry(self.lframe)
+        self.columnsEntry.insert(0,"Column names space-separated")
         self.columnsEntry.grid(row = 1, column = 1)
         
         self.varShot = IntVar()
@@ -156,6 +161,12 @@ class UiParameters:
         self.resYbox = Spinbox(self.lframe, increment = 1)
         self.SetValueToSBox(self.resYbox, 8)
         self.resYbox.grid(row = 7, column = 1)
+
+        self.kernelSizeLabel = Label(self.lframe, text="KDE kernel size: ")
+        self.kernelSizeLabel.grid(row = 8, column = 0)
+        self.kernelSizeSBox = Spinbox(self.lframe, increment = 1)
+        self.SetValueToSBox(self.kernelSizeSBox, 0.3)
+        self.kernelSizeSBox.grid(row = 8, column = 1)
 
         self.lframe.pack()
 

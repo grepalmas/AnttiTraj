@@ -68,23 +68,6 @@ def main(args):
     if len(dpiL) > 0:
         dpi = int(dpiL[0])
 
-    #visIdx = indexOf(args,"-vis",0)
-    #screenshot = indexOf(args,"-screenshot",0) >= 0
-
-    #listCols = []
-    #i  = visIdx + 1;
-
-    #resolution = [1,1]
-    #stat = "count"
-
-    #while args[i] != "-vis" and args[i] != "-open" and args[i] != "-res" and args[i] != "-stat" and args[i] != "-screenshot" and i < NumArgs:
-        
-    #    listCols.append(args[i])
-
-    #    i = i+1;
-    #    if i >= NumArgs:
-    #        break
-
     resolution = [0,0]
     resolutionL = findArg(args,"-res")
     if len(resolutionL) > 0:
@@ -100,9 +83,13 @@ def main(args):
     if len(gammaL[0]):
         gamma = float(gammaL[0])
     
+    ksize = None
+    ksizeL = findArg(args, "-ksize")
+    if len(ksizeL) > 0:
+        ksize = float(ksizeL[0])
 
     #Heatmap.MakeHeatMap(filePaths, listCols, filePath, stat, resolution, screenshot)
-    kdegen.MakeHeatMapKDE(filePaths, listCols, stat, resolution, screenshot, dpi, gamma)
+    kdegen.MakeHeatMapKDE(filePaths, listCols, stat, resolution,ksize, screenshot, dpi, gamma)
     
 
 if __name__ == "__main__":
