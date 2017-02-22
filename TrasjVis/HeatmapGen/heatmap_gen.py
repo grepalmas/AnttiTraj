@@ -105,8 +105,10 @@ def main(args):
     if len(filterL) > 0:
         filter = filterL[0]
 
+    showcont = indexOf(args, "-showcontours") > -1
+
     #Heatmap.MakeHeatMap(filePaths, listCols, filePath, stat, resolution, screenshot)
-    kdegen.MakeHeatMapKDE(filePaths, listCols, stat, resolution, ksize, color1, color2, filter , screenshot, dpi, gamma)
+    kdegen.MakeHeatMapKDE(filePaths, listCols, stat, resolution, ksize, color1, color2, filter , screenshot, dpi, gamma, showcont)
     
 
 if __name__ == "__main__":

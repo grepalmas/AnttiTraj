@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>126dcfd8-0573-47db-9b87-fd051e86917b</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>uicaller.py</StartupFile>
+    <StartupFile>heatmap_gen.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -13,7 +13,7 @@
     <Name>Reader</Name>
     <RootNamespace>Reader</RootNamespace>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
-    <CommandLineArguments>-open C:\Projects\AnttiTraj\data\test -vis x y trialtime -screenshot -res 80 40 -stat mean -gamma 2.0 -dpi 240</CommandLineArguments>
+    <CommandLineArguments>-open C:/Projects/AnttiTraj/data/test -vis x y trialtime -res 40 20 -ksize 0.3 -stat sum -gamma 1.0 -dpi 120 -color1 1 0 0 0 -color2 1 0 0 1 -imgfilter catrom -showcontours</CommandLineArguments>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">

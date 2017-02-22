@@ -66,6 +66,9 @@ class UiParameters:
 
         line.append("-imgfilter")
         line.append(self.filter_box_value.get())
+        
+        if self.contoursVar.get() == 1:
+            line.append("-showcontours")
 
         if aslist: return line
 
@@ -221,6 +224,12 @@ class UiParameters:
                                      'catrom', 'bessel', 'mitchell', 'sinc', 'lanczos','gaussian')
         self.filter_box.current(11)
         self.filter_box.grid(row = 11, column = 1)
+        
+        self.contoursLabel = Label(self.lframe, text="Show contours")
+        self.contoursLabel.grid(row = 12, column = 0)
+        self.contoursVar = IntVar()
+        self.contoursCheck = Checkbutton(self.lframe, text ="", onvalue = 1, offvalue = 0, variable = self.contoursVar)
+        self.contoursCheck.grid(row = 12, column = 1)
 
         self.lframe.pack()
         

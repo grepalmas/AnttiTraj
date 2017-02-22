@@ -67,6 +67,11 @@ def MakeKDE(filePaths, dimensions, res, stat, kernelsize):
 
     return densities, extents_x, extents_y, maxNormValue
 
+def PlotContours(heatmap_res, extents_x, extents_y, kde_density, subplot, color):
+
+    X, Y = np.mgrid[extents_x[0]:extents_x[-1]:heatmap_res[1]*1j, extents_y[0]:extents_y[-1]:heatmap_res[0]*1j]
+    subplot.contour(X,Y,kde_density, colors = "k")
+
 def GetColorMap(color1, color2):
 
     cmap = mpl.colors.LinearSegmentedColormap.from_list('my_cmap',[color1, color2],256)
@@ -123,7 +128,7 @@ def GetColorMap(color1, color2):
 
     #return densities, extents_x, extents_y, maxNormValue
 
-def MakeHeatMapKDE(filePaths, dimensions, stat, res, kernelsize, color1, color2, filter, screenshot = True, dpi_arg = 120, gamma = 1.0):
+def MakeHeatMapKDE(filePaths, dimensions, stat, res, kernelsize, color1, color2, filter, screenshot = True, dpi_arg = 120, gamma = 1.0, showcontours = False):
     
     if len(dimensions) < 2:
         return
@@ -133,8 +138,7 @@ def MakeHeatMapKDE(filePaths, dimensions, stat, res, kernelsize, color1, color2,
 
     #methods = ['none', 'nearest', 'bilinear', 'bicubic', 'spline16',
     #           'spline36', 'hanning', 'hamming', 'hermite', 'kaiser', 'quadric',
-    #           'catrom', 'bessel', 'mitchell', 'sinc', 'lanczos','gaussian']    
-    methods = ['catrom']    
+    #           'catrom', 'bessel', 'mitchell', 'sinc', 'lanczos','gaussian']     
     
     
     
@@ -160,7 +164,9 @@ def MakeHeatMapKDE(filePaths, dimensions, stat, res, kernelsize, color1, color2,
         if len(picData) > 0:
             ax.imshow(picData, interpolation = "none", extent=[extents_x[i][0],extents_x[i][-1], extents_y[i][0],extents_y[i][-1]])
         heatmap = ax.imshow(density_norm, interpolation = filter, extent=[extents_x[i][0],extents_x[i][-1], extents_y[i][0],extents_y[i][-1]], filterrad = 2.0, cmap=color_map)
-        
+        if showcontours:
+            PlotContours(res, extents_x[i], extents_y[i], density_norm, ax, color2)   
+
         #cbar = plt.colorbar(heatmap, ticks = [0,0.5,1])
         #cbar.ax.set_yticklabels([str(density_bounds[0]), str((density_bounds[0] + density_bounds[1])/2),str(density_bounds[1])])
 
