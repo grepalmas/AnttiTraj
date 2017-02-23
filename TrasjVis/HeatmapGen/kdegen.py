@@ -60,14 +60,12 @@ def MakeKDE(filePaths, dimensions, res, stat, kernelsize):
         maxNormValue = max(maxNormValue, kde_values.max())
         kde_values = np.reshape(kde_values.T, X.shape)
         kde_values = np.rot90(kde_values)
-        #kde_values = np.flipud(kde_values)
-        #kde_values = np.reshape(kde_values.T, (len(xcolumn),len(ycolumn)))
 
         densities.append(kde_values)
 
     return densities, extents_x, extents_y, maxNormValue
 
-def PlotContours(heatmap_res, extents_x, extents_y, kde_density, subplot, color):
+def PlotContours(heatmap_res, extents_x, extents_y, kde_density, subplot, cmap,fig):
 
     density_contour = np.array(kde_density)
 
@@ -75,7 +73,17 @@ def PlotContours(heatmap_res, extents_x, extents_y, kde_density, subplot, color)
         density_contour = np.rot90(density_contour)
 
     X, Y = np.mgrid[extents_x[0]:extents_x[-1]:heatmap_res[0]*1j, extents_y[0]:extents_y[-1]:heatmap_res[1]*1j]
-    subplot.contour(X,Y,density_contour, colors = "k")
+    #subplot.contour(X,Y,density_contour, colors = "k")
+    size = fig.get_size_inches()
+    
+    data_width = extents_x[-1] - extents_x[0]
+    data_height = extents_y[-1] - extents_y[0]
+
+    data_ratio = data_height/data_width
+    
+    fig.set_size_inches(size[0], size[0] * data_ratio, forward = True)
+
+    subplot.contourf(X,Y,density_contour, cmap = cmap, extent=[extents_x[0],extents_x[-1], extents_y[0],extents_y[-1]])
 
 def GetColorMap(color1, color2):
 
@@ -168,9 +176,11 @@ def MakeHeatMapKDE(filePaths, dimensions, stat, res, kernelsize, color1, color2,
 
         if len(picData) > 0:
             ax.imshow(picData, interpolation = "none", extent=[extents_x[i][0],extents_x[i][-1], extents_y[i][0],extents_y[i][-1]])
-        heatmap = ax.imshow(density_norm, interpolation = filter, extent=[extents_x[i][0],extents_x[i][-1], extents_y[i][0],extents_y[i][-1]], filterrad = 2.0, cmap=color_map)
         if showcontours:
-            PlotContours(res, extents_x[i], extents_y[i], density_norm, ax, color2)   
+            PlotContours(res, extents_x[i], extents_y[i], density_norm, ax, color_map,fig)          
+        
+        else: heatmap = ax.imshow(density_norm, interpolation = filter, extent=[extents_x[i][0],extents_x[i][-1], extents_y[i][0],extents_y[i][-1]], filterrad = 2.0, cmap=color_map)
+         
 
         #cbar = plt.colorbar(heatmap, ticks = [0,0.5,1])
         #cbar.ax.set_yticklabels([str(density_bounds[0]), str((density_bounds[0] + density_bounds[1])/2),str(density_bounds[1])])
