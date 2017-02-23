@@ -31,6 +31,7 @@ def MakeKDE(filePaths, dimensions, res, stat, kernelsize):
         dataColumn = np.array([])
         if len(dimensions) > 2:
             dataColumn = data[dimensions[2]]
+            dataColumn = dataColumn.astype(float)
         else:
             dataColumn = np.ones(len(xcolumn))
         
@@ -98,6 +99,8 @@ def MakeHeatMapKDE(filePaths, dimensions, stat, res, kernelsize, color1, color2,
     #           'spline36', 'hanning', 'hamming', 'hermite', 'kaiser', 'quadric',
     #           'catrom', 'bessel', 'mitchell', 'sinc', 'lanczos','gaussian']     
     
+    if not screenshot:
+        plt.ion() 
     
     
     for (i, density) in enumerate(densities):
@@ -118,6 +121,8 @@ def MakeHeatMapKDE(filePaths, dimensions, stat, res, kernelsize, color1, color2,
 
         fig, ax = plt.subplots()
         
+        fig.canvas.set_window_title(filePaths[i])
+
         if len(picData) > 0:
             ax.imshow(picData, interpolation = "none", extent=[extents_x[i][0],extents_x[i][-1], extents_y[i][0],extents_y[i][-1]])
         if showcontours:
@@ -133,7 +138,10 @@ def MakeHeatMapKDE(filePaths, dimensions, stat, res, kernelsize, color1, color2,
             fig.tight_layout()
 
             plt.savefig(fig_path, bbox_inches = 'tight',pad_inches=0, dpi=dpi_arg, format = 'png');
+            plt.close(fig)
 
-        else: plt.show()
+        else:
+          #plt.clf()
+           plt.show()
 
-        plt.close(fig)
+        #plt.close(fig)
