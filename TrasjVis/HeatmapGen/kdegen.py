@@ -84,7 +84,7 @@ def GetColorMap(color1, color2):
 
     cmap = mpl.colors.LinearSegmentedColormap.from_list('my_cmap',[color1, color2],256)
     cmap._init()
-    return cmaps
+    return cmap
 
 def MakeHeatMapKDE(filePaths, dimensions, stat, res, kernelsize, color1, color2, filter, screenshot = True, dpi_arg = 120, gamma = 1.0, showcontours = False):
     
