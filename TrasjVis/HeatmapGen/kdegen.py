@@ -69,8 +69,13 @@ def MakeKDE(filePaths, dimensions, res, stat, kernelsize):
 
 def PlotContours(heatmap_res, extents_x, extents_y, kde_density, subplot, color):
 
-    X, Y = np.mgrid[extents_x[0]:extents_x[-1]:heatmap_res[1]*1j, extents_y[0]:extents_y[-1]:heatmap_res[0]*1j]
-    subplot.contour(X,Y,kde_density, colors = "k")
+    density_contour = np.array(kde_density)
+
+    for i in range(3):
+        density_contour = np.rot90(density_contour)
+
+    X, Y = np.mgrid[extents_x[0]:extents_x[-1]:heatmap_res[0]*1j, extents_y[0]:extents_y[-1]:heatmap_res[1]*1j]
+    subplot.contour(X,Y,density_contour, colors = "k")
 
 def GetColorMap(color1, color2):
 
