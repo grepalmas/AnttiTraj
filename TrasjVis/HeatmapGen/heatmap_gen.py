@@ -115,8 +115,10 @@ def main(args):
     if len(transformL) > 0:
         transform = transformL[0]
 
+    saveKDE = indexOf(args, "-saveKDE") > -1
+
     #Heatmap.MakeHeatMap(filePaths, listCols, filePath, stat, resolution, screenshot)
-    kdegen.MakeHeatMapKDE(filePaths, listCols, stat, resolution, ksize, color1, color2, filter , screenshot, dpi, gamma, showcont, flipx, flipy,transform)
+    kdegen.MakeHeatMapKDE(filePaths, listCols, stat, resolution, ksize, color1, color2, filter , screenshot, dpi, gamma, showcont, flipx, flipy,transform,saveKDE)
     
 
 if __name__ == "__main__":

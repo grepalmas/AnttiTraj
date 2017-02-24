@@ -1,3 +1,6 @@
+import matplotlib as mpl
+mpl.use("TkAgg")
+
 import Tkinter as tk
 
 from uiparameters import UiParameters

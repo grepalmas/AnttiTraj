@@ -1,10 +1,11 @@
-import custom_stats
-import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
+
+import custom_stats
+import numpy as np
+
 from matplotlib.colors import colorConverter
 
-import statsmodels.api as sm
 from scipy import stats
 
 import os;
@@ -87,11 +88,25 @@ def GetColorMap(color1, color2):
     cmap._init()
     return cmap
 
-def MakeHeatMapKDE(filePaths, dimensions, stat, res, kernelsize, color1, color2, filter, screenshot = True, dpi_arg = 120, gamma = 1.0, showcontours = False, flipx = False, flipy = False, transform = 'none'):
+def SaveScalarField(density, filePath):
+
+    fileDirePath = os.path.dirname(filePath) + "/densities/"
+    if not os.path.isdir(fileDirePath):
+        os.mkdir(fileDirePath)
+
+    outfilePath = fileDirePath  + os.path.basename(filePath).replace(".csv","_kde.csv")
+    outfile = open(outfilePath, 'w')
+    outfile.write("X,Y,Value\n")
+
+    for x in range(len(density)):
+        for y in range(len(density[x])):
+            outfile.write(str(x)+","+str(y)+","+str(density[x][y])+"\n")
+    outfile.close()
+
+def MakeHeatMapKDE(filePaths, dimensions, stat, res, kernelsize, color1, color2, filter, screenshot = True, dpi_arg = 120, gamma = 1.0, showcontours = False, flipx = False, flipy = False, transform = 'none', saveKDE = False):
     
     if len(dimensions) < 2:
         return
-    
 
     densities, extents_x, extents_y, normvalue = MakeKDE(filePaths, dimensions, res, stat, kernelsize)
 
@@ -110,7 +125,9 @@ def MakeHeatMapKDE(filePaths, dimensions, stat, res, kernelsize, color1, color2,
         uiPicPath = filePaths[i].replace(".csv",".png")
         if os.path.isfile(uiPicPath):
             picData = plt.imread(uiPicPath)
-            
+        
+        if saveKDE:
+            SaveScalarField(density, filePaths[i])
 
         density_gamma = np.power(density, 1.0/gamma)
         norm_gamma = pow(normvalue, 1.0/gamma)    
@@ -158,7 +175,12 @@ def MakeHeatMapKDE(filePaths, dimensions, stat, res, kernelsize, color1, color2,
         else: heatmap = ax.imshow(density_norm, interpolation = filter, extent=[extents_x[i][0],extents_x[i][-1], extents_y[i][0],extents_y[i][-1]], filterrad = 2.0, cmap=color_map)
         
         if screenshot:
-            fig_path = filePaths[i].replace(".csv","_"+filter+".png")
+            
+            fileDirePath = os.path.dirname(filePaths[i]) + "/results/"
+            if not os.path.isdir(fileDirePath):
+                os.mkdir(fileDirePath)
+        
+            fig_path = fileDirePath  + os.path.basename(filePaths[i]).replace(".csv","_"+filter+".png")
 
             fig.tight_layout()
 

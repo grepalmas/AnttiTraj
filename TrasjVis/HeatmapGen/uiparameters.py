@@ -79,6 +79,9 @@ class UiParameters:
         line.append("-transform")
         line.append(self.transform_box_value.get())
 
+        if self.saveKDEVar:
+            line.append("-saveKDE")
+
         if aslist: return line
 
         return " ".join(line)
@@ -265,6 +268,12 @@ class UiParameters:
         self.transform_box['values'] = ('none', 'log10', 'sqrt', 'reciprocal')
         self.transform_box.current(0)
         self.transform_box.grid(row = 15, column = 1)
+
+        self.saveKDELavel = Label(self.lframe, text="Save Densities")
+        self.saveKDELavel.grid(row = 16, column = 0)
+        self.saveKDEVar = IntVar()
+        self.saveKDECheck = Checkbutton(self.lframe, text ="", onvalue = 1, offvalue = 0, variable = self.saveKDEVar)
+        self.saveKDECheck.grid(row = 16, column = 1)
 
         self.lframe.pack()
         
