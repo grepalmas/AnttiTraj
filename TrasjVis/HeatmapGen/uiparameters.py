@@ -46,7 +46,7 @@ class UiParameters:
         line.append(self.kernelSizeSBox.get())
 
         line.append("-stat")
-        line.append(self.statListBox.get(self.statListBox.curselection()))
+        line.append(self.statListBoxVar.get())
         
         line.append("-gamma")
         line.append(self.gammaSbox.get())
@@ -69,6 +69,12 @@ class UiParameters:
         
         if self.contoursVar.get() == 1:
             line.append("-showcontours")
+
+        if self.flipXVar.get() == 1:
+            line.append("-flipx")
+
+        if self.flipYVar.get() == 1:
+            line.append("-flipy")
 
         if aslist: return line
 
@@ -168,12 +174,18 @@ class UiParameters:
 
         self.statLabel = Label(self.lframe, text="Stat: ")
         self.statLabel.grid(row = 4, column = 0)
-        self.statListBox = Listbox(self.lframe, height = 2)
-        self.statListBox.insert(tk.END, "mean")
-        self.statListBox.insert(tk.END, "sum")
-        self.statListBox.select_set(0,0)
-        self.statListBox.pack()
+        self.statListBoxVar = StringVar()
+        self.statListBox = ttk.Combobox(self.lframe, textvariable = self.statListBoxVar)
+        self.statListBox['values'] = ('mean', 'sum')
+        self.statListBox.current(0)
         self.statListBox.grid(row = 4, column = 1)
+
+        #self.filter_box = ttk.Combobox(self.lframe, textvariable = self.filter_box_value)
+        #self.filter_box['values'] = ('none', 'nearest', 'bilinear', 'bicubic', 'spline16',\
+        #                             'spline36', 'hanning', 'hamming', 'hermite', 'kaiser', 'quadric',\
+        #                             'catrom', 'bessel', 'mitchell', 'sinc', 'lanczos','gaussian')
+        #self.filter_box.current(11)
+        #self.filter_box.grid(row = 11, column = 1)
 
         self.gammaLabel = Label(self.lframe, text="Gamma factor: ")
         self.gammaLabel.grid(row = 5, column = 0)
@@ -230,6 +242,26 @@ class UiParameters:
         self.contoursVar = IntVar()
         self.contoursCheck = Checkbutton(self.lframe, text ="", onvalue = 1, offvalue = 0, variable = self.contoursVar)
         self.contoursCheck.grid(row = 12, column = 1)
+
+        self.flipXLabel = Label(self.lframe, text="Flip X")
+        self.flipXLabel.grid(row = 13, column = 0)
+        self.flipXVar = IntVar()
+        self.flipXCheck = Checkbutton(self.lframe, text ="", onvalue = 1, offvalue = 0, variable = self.flipXVar)
+        self.flipXCheck.grid(row = 13, column = 1)
+
+        self.flipYLabel = Label(self.lframe, text="Flip Y")
+        self.flipYLabel.grid(row = 14, column = 0)
+        self.flipYVar = IntVar()
+        self.flipYCheck = Checkbutton(self.lframe, text ="", onvalue = 1, offvalue = 0, variable = self.flipYVar)
+        self.flipYCheck.grid(row = 14, column = 1)
+        
+        self.transform_label = Label(self.lframe, text="Linear transformation")
+        self.transform_label.grid(row = 15, column = 0)
+        self.transform_box_value = StringVar()
+        self.transform_box = ttk.Combobox(self.lframe, textvariable = self.transform_box_value)
+        self.transform_box['values'] = ('none', 'exponential', 'quadratic', 'reciprocal', 'logarithmic')
+        self.transform_box.current(0)
+        self.transform_box.grid(row = 15, column = 1)
 
         self.lframe.pack()
         

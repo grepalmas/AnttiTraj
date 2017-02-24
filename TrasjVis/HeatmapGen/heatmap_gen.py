@@ -107,8 +107,11 @@ def main(args):
 
     showcont = indexOf(args, "-showcontours") > -1
 
+    flipx = indexOf(args, "-flipx") > -1
+    flipy = indexOf(args, "-flipy") > -1
+
     #Heatmap.MakeHeatMap(filePaths, listCols, filePath, stat, resolution, screenshot)
-    kdegen.MakeHeatMapKDE(filePaths, listCols, stat, resolution, ksize, color1, color2, filter , screenshot, dpi, gamma, showcont)
+    kdegen.MakeHeatMapKDE(filePaths, listCols, stat, resolution, ksize, color1, color2, filter , screenshot, dpi, gamma, showcont, flipx, flipy)
     
 
 if __name__ == "__main__":

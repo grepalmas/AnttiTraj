@@ -87,7 +87,7 @@ def GetColorMap(color1, color2):
     cmap._init()
     return cmap
 
-def MakeHeatMapKDE(filePaths, dimensions, stat, res, kernelsize, color1, color2, filter, screenshot = True, dpi_arg = 120, gamma = 1.0, showcontours = False):
+def MakeHeatMapKDE(filePaths, dimensions, stat, res, kernelsize, color1, color2, filter, screenshot = True, dpi_arg = 120, gamma = 1.0, showcontours = False, flipx = False, flipy = False):
     
     if len(dimensions) < 2:
         return
@@ -116,6 +116,11 @@ def MakeHeatMapKDE(filePaths, dimensions, stat, res, kernelsize, color1, color2,
         norm_gamma = pow(normvalue, 1.0/gamma)    
 
         density_norm = np.divide(density_gamma, norm_gamma)         
+        
+        if flipx:
+            density_norm = np.fliplr(density_norm)
+        if flipy:
+            density_norm = np.flipud(density_norm)
         
         color_map = GetColorMap(color1,color2)
 
