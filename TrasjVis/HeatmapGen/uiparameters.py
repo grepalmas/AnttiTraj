@@ -76,6 +76,9 @@ class UiParameters:
         if self.flipYVar.get() == 1:
             line.append("-flipy")
 
+        line.append("-transform")
+        line.append(self.transform_box_value.get())
+
         if aslist: return line
 
         return " ".join(line)
@@ -255,11 +258,11 @@ class UiParameters:
         self.flipYCheck = Checkbutton(self.lframe, text ="", onvalue = 1, offvalue = 0, variable = self.flipYVar)
         self.flipYCheck.grid(row = 14, column = 1)
         
-        self.transform_label = Label(self.lframe, text="Linear transformation")
+        self.transform_label = Label(self.lframe, text="Data transformation")
         self.transform_label.grid(row = 15, column = 0)
         self.transform_box_value = StringVar()
         self.transform_box = ttk.Combobox(self.lframe, textvariable = self.transform_box_value)
-        self.transform_box['values'] = ('none', 'exponential', 'quadratic', 'reciprocal', 'logarithmic')
+        self.transform_box['values'] = ('none', 'exponential', 'quadratic', 'reciprocal')
         self.transform_box.current(0)
         self.transform_box.grid(row = 15, column = 1)
 

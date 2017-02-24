@@ -110,8 +110,13 @@ def main(args):
     flipx = indexOf(args, "-flipx") > -1
     flipy = indexOf(args, "-flipy") > -1
 
+    transform = 'none'
+    transformL = findArg(args, "-transform")
+    if len(transformL) > 0:
+        transform = transformL[0]
+
     #Heatmap.MakeHeatMap(filePaths, listCols, filePath, stat, resolution, screenshot)
-    kdegen.MakeHeatMapKDE(filePaths, listCols, stat, resolution, ksize, color1, color2, filter , screenshot, dpi, gamma, showcont, flipx, flipy)
+    kdegen.MakeHeatMapKDE(filePaths, listCols, stat, resolution, ksize, color1, color2, filter , screenshot, dpi, gamma, showcont, flipx, flipy,transform)
     
 
 if __name__ == "__main__":

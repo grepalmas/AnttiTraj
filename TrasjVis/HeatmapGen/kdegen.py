@@ -87,7 +87,7 @@ def GetColorMap(color1, color2):
     cmap._init()
     return cmap
 
-def MakeHeatMapKDE(filePaths, dimensions, stat, res, kernelsize, color1, color2, filter, screenshot = True, dpi_arg = 120, gamma = 1.0, showcontours = False, flipx = False, flipy = False):
+def MakeHeatMapKDE(filePaths, dimensions, stat, res, kernelsize, color1, color2, filter, screenshot = True, dpi_arg = 120, gamma = 1.0, showcontours = False, flipx = False, flipy = False, transform = 'none'):
     
     if len(dimensions) < 2:
         return
@@ -117,11 +117,31 @@ def MakeHeatMapKDE(filePaths, dimensions, stat, res, kernelsize, color1, color2,
 
         density_norm = np.divide(density_gamma, norm_gamma)         
         
+        if transform != 'none':
+        
+        #from http://stattrek.com/regression/linear-transformation.aspx?Tutorial=AP
+
+            density_min = density_norm.min()               
+
+            if transform == 'exponential':
+                if density_min < 0:
+                    density_norm[:] += -density_min + 0.01    
+                density_norm = np.log10(density_norm)
+                
+            elif transform == 'quadratic':
+                if density_min < 0:
+                    density_norm[:] += -density_min    
+                density_norm = np.sqrt(density_norm)
+
+            elif transform == 'reciprocal':
+                density_norm = np.reciprocal(density_norm)
+                density_norm[density_norm == np.nan] = 0
+
         if flipx:
             density_norm = np.fliplr(density_norm)
         if flipy:
             density_norm = np.flipud(density_norm)
-        
+           
         color_map = GetColorMap(color1,color2)
 
         fig, ax = plt.subplots()
