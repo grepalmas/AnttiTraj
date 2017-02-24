@@ -262,7 +262,7 @@ class UiParameters:
         self.transform_label.grid(row = 15, column = 0)
         self.transform_box_value = StringVar()
         self.transform_box = ttk.Combobox(self.lframe, textvariable = self.transform_box_value)
-        self.transform_box['values'] = ('none', 'exponential', 'quadratic', 'reciprocal')
+        self.transform_box['values'] = ('none', 'log10', 'sqrt', 'reciprocal')
         self.transform_box.current(0)
         self.transform_box.grid(row = 15, column = 1)
 

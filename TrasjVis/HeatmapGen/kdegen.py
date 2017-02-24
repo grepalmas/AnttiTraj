@@ -123,12 +123,12 @@ def MakeHeatMapKDE(filePaths, dimensions, stat, res, kernelsize, color1, color2,
 
             density_min = density_norm.min()               
 
-            if transform == 'exponential':
+            if transform == 'log10':
                 if density_min < 0:
                     density_norm[:] += -density_min + 0.01    
                 density_norm = np.log10(density_norm)
                 
-            elif transform == 'quadratic':
+            elif transform == 'sqrt':
                 if density_min < 0:
                     density_norm[:] += -density_min    
                 density_norm = np.sqrt(density_norm)
