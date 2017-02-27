@@ -429,7 +429,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="408.23437"
+     inkscape:cx="257.21656"
      inkscape:cy="681.58326"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -447,7 +447,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -849,7 +849,7 @@
          x="21.341484"
          y="724.40234"
          style="font-size:11.25px"
-         id="tspan4439">-stat mean -gamma 1.0 -dpi 120 -color1 1 0 0 0 -color2 1 0 0 1 iimgfilter catrom -showcontours -flipx -flipy </tspan><tspan
+         id="tspan4439">-stat mean -gamma 1.0 -dpi 120 -color1 1 0 0 0 -color2 1 0 0 1 -imgfilter catrom -showcontours -flipx -flipy </tspan><tspan
          sodipodi:role="line"
          x="21.341484"
          y="738.46484"
